@@ -174,15 +174,15 @@ class Broker():
         # Put the name dimension first because it is more likely to be unique
         # and we don't want it to get truncated.
         if 'name' in dimensions:
-            dim_pairs.append('name=%s' % dimensions['name'])
-        dim_pairs.extend("%s=%s" % (k, v) for k, v in dimensions.iteritems() if
+            dim_pairs.append('name-%s' % dimensions['name'])
+        dim_pairs.extend("%s-%s" % (k, v) for k, v in dimensions.iteritems() if
                          k != 'name')
-        dim_str = ",".join(dim_pairs)[:trunc_len]
+        dim_str = "_".join(dim_pairs)[:trunc_len]
 
         if self.extra_dimensions:
             dim_str += ",%s" % self.extra_dimensions
 
-        return "[%s]" % dim_str
+        return "%s" % dim_str
 
     def determine_metrics(self, stats, base_name=''):
         """
